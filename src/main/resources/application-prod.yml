@@ -1,0 +1,8 @@
+# Activated via SPRING_PROFILES_ACTIVE=prod (Render deployment) — see application.yml's comment.
+logging:
+  structured:
+    format:
+      console: ecs
+
+keepalive:
+  enabled: ${KEEPALIVE_ENABLED:true}
