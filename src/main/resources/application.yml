@@ -29,6 +29,13 @@ spring:
               predicates:
                 - Path=/api/v1/recommendations/**
 
+            # User-scoped: the Authorization header is forwarded untouched and library-svc
+            # verifies the Supabase JWT itself.
+            - id: library-svc
+              uri: ${LIBRARY_SVC_URL:http://localhost:8085}
+              predicates:
+                - Path=/api/v1/library/**
+
           globalcors:
             cors-configurations:
               "[/**]":
@@ -48,7 +55,7 @@ keepalive:
   enabled: ${KEEPALIVE_ENABLED:false}
   # Render sets RENDER_EXTERNAL_URL itself — pinging our own public URL keeps the gateway awake too.
   self-url: ${RENDER_EXTERNAL_URL:}
-  service-urls: ${CATALOG_SVC_URL:},${PLAYBACK_SVC_URL:},${RECOMMENDATION_SVC_URL:}
+  service-urls: ${CATALOG_SVC_URL:},${PLAYBACK_SVC_URL:},${RECOMMENDATION_SVC_URL:},${LIBRARY_SVC_URL:}
   services-interval: ${KEEPALIVE_SERVICES_INTERVAL:PT10M}
   database-interval: ${KEEPALIVE_DATABASE_INTERVAL:PT12H}
 
